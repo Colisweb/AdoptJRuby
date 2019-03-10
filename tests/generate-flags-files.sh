@@ -5,3 +5,5 @@
 docker run main-adoptopenjdk > adoptopenjdk11.txt
 
 docker run main-openjdk > openjdk11.txt
+
+docker run main-oracle > oracle11.txt
