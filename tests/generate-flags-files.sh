@@ -2,6 +2,6 @@
 
 ./build.sh
 
-docker run main-adoptopenjdk > adoptopenjdk.txt
+docker run main-adoptopenjdk > adoptopenjdk11.txt
 
-docker run main-openjdk > openjdk.txt
+docker run main-openjdk > openjdk11.txt
