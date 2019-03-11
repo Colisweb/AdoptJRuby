@@ -1,6 +1,6 @@
 # Copied from https://github.com/cpuguy83/docker-jruby/blob/baed0bc286dba0992746c2f9cbb311a1c945a16f/9000/jdk/Dockerfile
 #
-FROM adoptopenjdk/openjdk11:jdk8u202-b08-slim
+FROM adoptopenjdk/openjdk8:jdk8u202-b08-slim
 
 # `netbase` comes from here: https://github.com/jruby/jruby/issues/3955#issuecomment-254504589
 #
