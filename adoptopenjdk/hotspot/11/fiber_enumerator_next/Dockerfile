@@ -9,18 +9,18 @@ FROM adoptopenjdk/openjdk11:jdk-11.0.2.9-slim
 #
 RUN apt-get update && \
     apt-get dist-upgrade -y && \
-    apt-get install -y libc6-dev netbase libfontconfig git maven ant build-essential --no-install-recommends && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get install -y libc6-dev netbase libfontconfig git maven ant build-essential && \
+    rm -rf /var/lib/apt/lists/* && \
+    cd /opt \
+    git clone https://github.com/guizmaii/jruby && \
+    cd jruby && \
+    git checkout fiber_enumerator_next && \
+    git pull && \
+    ./mvnw && \
+    ls && \
+    update-alternatives --install /usr/local/bin/ruby ruby /opt/jruby/bin/jruby 1 && \
+    apt-get remove git maven ant build-essential
 
-ENV JRUBY_VERSION 9.2.6.0
-ENV JRUBY_SHA256 70a1ff0e17a98baa63ea92c91fd38ff1e55a2056e5d57ba0409c4543d29e0e3d
-RUN cd /opt \
-  && git clone https://github.com/headius/jruby \
-  && cd jruby \
-  && git checkout fiber_enumerator_next \
-  && mvn package -Pbootstrap \
-  && ls \
-  && update-alternatives --install /usr/local/bin/ruby ruby /opt/jruby/bin/jruby 1
 ENV PATH /opt/jruby/bin:$PATH
 
 # skip installing gem documentation
