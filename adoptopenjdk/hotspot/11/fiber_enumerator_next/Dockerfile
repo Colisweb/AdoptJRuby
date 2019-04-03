@@ -11,7 +11,7 @@ RUN apt-get update && \
     apt-get dist-upgrade -y && \
     apt-get install -y libc6-dev netbase libfontconfig git maven ant build-essential && \
     rm -rf /var/lib/apt/lists/* && \
-    cd /opt \
+    cd /opt && \
     git clone https://github.com/guizmaii/jruby && \
     cd jruby && \
     git checkout fiber_enumerator_next && \
@@ -19,7 +19,9 @@ RUN apt-get update && \
     ./mvnw && \
     ls && \
     update-alternatives --install /usr/local/bin/ruby ruby /opt/jruby/bin/jruby 1 && \
-    apt-get remove git maven ant build-essential
+    apt-get remove git maven ant build-essential && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
 
 ENV PATH /opt/jruby/bin:$PATH
 
