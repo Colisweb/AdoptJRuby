@@ -9,13 +9,11 @@ FROM adoptopenjdk/openjdk11:jdk-11.0.2.9-slim
 #
 RUN apt-get update && \
     apt-get dist-upgrade -y && \
-    apt-get install -y libc6-dev netbase libfontconfig git maven ant build-essential && \
-    rm -rf /var/lib/apt/lists/* && \
+    apt-get install -y libc6-dev netbase libfontconfig git maven ant build-essential --no-install-recommends && \
     cd /opt && \
-    git clone https://github.com/guizmaii/jruby && \
+    git clone --depth 1 -b fiber_enumerator_next https://github.com/guizmaii/jruby && \
     cd jruby && \
-    git checkout fiber_enumerator_next && \
-    git pull && \
+    rm -rf .git && \
     ./mvnw && \
     update-alternatives --install /usr/local/bin/ruby ruby /opt/jruby/bin/jruby 1 && \
     apt-get remove -y git maven ant build-essential && \
@@ -31,7 +29,7 @@ RUN mkdir -p /opt/jruby/etc \
 		echo 'update: --no-document'; \
 	} >> /opt/jruby/etc/gemrc
 
-RUN gem install bundler rake net-telnet xmlrpc
+RUN gem update --system && gem install bundler rake net-telnet xmlrpc
 
 # install things globally, for great justice
 # and don't create ".bundle" in all our apps
