@@ -19,7 +19,7 @@ RUN apt-get update && \
     ./mvnw && \
     ls && \
     update-alternatives --install /usr/local/bin/ruby ruby /opt/jruby/bin/jruby 1 && \
-    apt-get remove git maven ant build-essential && \
+    apt-get remove -y git maven ant build-essential && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
