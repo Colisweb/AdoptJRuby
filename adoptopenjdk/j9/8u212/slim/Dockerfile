@@ -1,25 +1,24 @@
 # Copied from https://github.com/cpuguy83/docker-jruby/blob/baed0bc286dba0992746c2f9cbb311a1c945a16f/9000/jdk/Dockerfile
 #
-FROM adoptopenjdk/openjdk11:jdk-11.0.2.9-slim
+FROM adoptopenjdk/openjdk8-openj9:jdk8u212-b03_openj9-0.14.0-slim
 
 # Fixes brought to this version:
 # ------------------------------
 #   - `netbase` is required. See: https://github.com/jruby/jruby/issues/3955#issuecomment-254504589
-#   - `libfontconfig` is required. See: https://bugs.openjdk.java.net/browse/JDK-8204688
 #
 RUN apt-get update && \
     apt-get dist-upgrade -y && \
-    apt-get install -y libc6-dev netbase libfontconfig git maven ant build-essential --no-install-recommends && \
-    cd /opt && \
-    git clone --depth 1 -b fiber_enumerator_next https://github.com/guizmaii/jruby && \
-    cd jruby && \
-    rm -rf .git && \
-    ./mvnw && \
-    update-alternatives --install /usr/local/bin/ruby ruby /opt/jruby/bin/jruby 1 && \
-    apt-get remove -y git maven ant build-essential && \
-    apt-get autoremove -y && \
+    apt-get install -y libc6-dev netbase --no-install-recommends && \
     rm -rf /var/lib/apt/lists/*
 
+ENV JRUBY_VERSION 9.2.7.0
+ENV JRUBY_SHA256 da7c1a5ce90015c0bafd4bca0352294e08fe1c9ec049ac51e82fe57ed50e1348
+RUN mkdir /opt/jruby \
+  && curl -fSL https://repo1.maven.org/maven2/org/jruby/jruby-dist/${JRUBY_VERSION}/jruby-dist-${JRUBY_VERSION}-bin.tar.gz -o /tmp/jruby.tar.gz \
+  && echo "$JRUBY_SHA256 /tmp/jruby.tar.gz" | sha256sum -c - \
+  && tar -zx --strip-components=1 -f /tmp/jruby.tar.gz -C /opt/jruby \
+  && rm /tmp/jruby.tar.gz \
+  && update-alternatives --install /usr/local/bin/ruby ruby /opt/jruby/bin/jruby 1
 ENV PATH /opt/jruby/bin:$PATH
 
 # skip installing gem documentation
@@ -29,7 +28,7 @@ RUN mkdir -p /opt/jruby/etc \
 		echo 'update: --no-document'; \
 	} >> /opt/jruby/etc/gemrc
 
-RUN gem update --system && gem install bundler rake net-telnet xmlrpc
+RUN gem install bundler rake net-telnet xmlrpc
 
 # install things globally, for great justice
 # and don't create ".bundle" in all our apps
