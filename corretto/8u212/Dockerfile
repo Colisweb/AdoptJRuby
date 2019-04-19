@@ -2,7 +2,7 @@
 #
 FROM amazoncorretto:8u212
 
-RUN yum update -y && yum install -y tar
+RUN yum update -y && yum install -y tar gzip
 
 ENV JRUBY_VERSION 9.2.7.0
 ENV JRUBY_SHA256 da7c1a5ce90015c0bafd4bca0352294e08fe1c9ec049ac51e82fe57ed50e1348
