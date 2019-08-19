@@ -88,3 +88,6 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 /.idea/
+.gitsecret/keys/random_seed
+!*.secret
+docker_login.sh
