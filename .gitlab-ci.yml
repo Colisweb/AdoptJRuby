@@ -1,0 +1,16 @@
+publish docker image:
+  image: docker:19.03.1
+  only:
+    refs:
+      - master
+  script:
+    - docker build -t colisweb/adoptjruby:adoptopenjdk-11.0.3-slim-9.2.8.0 adoptopenjdk/hotspot/11.0.3/slim/
+    - docker push colisweb/adoptjruby:adoptopenjdk-11.0.3-slim-9.2.8.0
+
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+  before_script:
+    - gpg --import  <(echo "$GITLAB_PGP_PRIVATE_KEY") && source <(gpg -q --decrypt docker_login.sh.secret)
+
