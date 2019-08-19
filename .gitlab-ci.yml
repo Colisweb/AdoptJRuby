@@ -1,12 +1,20 @@
-publish docker image:
-  image: docker:19.03.1
+.publish: &publish
   only:
     refs:
       - master
   script:
-    - docker build -t colisweb/adoptjruby:adoptopenjdk-11.0.3-slim-9.2.8.0 adoptopenjdk/hotspot/11.0.3/slim/
-    - docker push colisweb/adoptjruby:adoptopenjdk-11.0.3-slim-9.2.8.0
-
+    - set -x
+    - JDK="$(echo $CI_JOB_NAME | cut -d' ' -f2)"
+    - JDK_VERSION="$(echo $CI_JOB_NAME | cut -d' ' -f3)"
+    - JVM="$(echo $CI_JOB_NAME | cut -d' ' -f4)"
+    - JRUBY_VERSION="$(echo $CI_JOB_NAME | cut -d' ' -f5)"
+    - SLIM="$(echo $CI_JOB_NAME | cut -d' ' -f6)"
+    - TAG="${JDK}jdk${JDK_VERSION}-${SLIM}-${JVM}-${JRUBY_VERSION}"
+    - if [ -z "${SLIM}" ]; then SLIM_FOLDER=""; else SLIM_FOLDER="/slim"; fi
+    - DOCKER_FOLDER="${JDK}/${JVM}/${JDK_VERSION}${SLIM_FOLDER}/"
+    - docker build -t colisweb/adoptjruby:$TAG $DOCKER_FOLDER
+    - docker push colisweb/adoptjruby:$TAG
+  image: docker:19.03.1
   services:
     - docker:dind
   variables:
@@ -15,4 +23,10 @@ publish docker image:
     - apk add bash gnupg
     - bash -c 'gpg --import  <(echo "$GITLAB_PGP_PRIVATE_KEY")'
     - bash -c "source <(gpg -q --decrypt docker_login.sh.secret)"
+
+
+publish adoptopenjdk 11.0.3 hotspot 9.2.8.0 slim: 
+  <<: *publish
+publish adoptopenjdk 11.0.3 j9 9.2.8.0 slim:
+  <<: *publish
 
