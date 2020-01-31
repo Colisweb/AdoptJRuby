@@ -25,6 +25,6 @@
     - bash -c "source <(gpg -q --decrypt docker_login.sh.secret)"
 
 
-publish adoptopenjdk 11.0.5 hotspot 9.2.8.0 slim:
+publish adoptopenjdk 11.0.6 hotspot 9.2.9.0 slim:
   <<: *publish
 

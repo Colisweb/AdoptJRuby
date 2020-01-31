@@ -1,6 +1,6 @@
 # Copied from https://github.com/cpuguy83/docker-jruby/blob/baed0bc286dba0992746c2f9cbb311a1c945a16f/9000/jdk/Dockerfile
 #
-FROM adoptopenjdk/openjdk11:x86_64-ubuntu-jdk-11.0.3.7-slim
+FROM adoptopenjdk/openjdk11:x86_64-ubuntu-jdk-11.0.6_10-slim
 
 # Fixes brought to this version:
 # ------------------------------
@@ -12,7 +12,7 @@ RUN apt-get update && \
     apt-get install -y libc6-dev netbase libfontconfig --no-install-recommends && \
     rm -rf /var/lib/apt/lists/*
 
-ENV JRUBY_VERSION 9.2.8.0
+ENV JRUBY_VERSION 9.2.9.0
 ENV JRUBY_SHA256 b7c58688093f54acd89d732a8bf40e3ae0ac4c92488d6f5b424c33e4fb09c7bb
 RUN mkdir /opt/jruby \
   && curl -fSL https://repo1.maven.org/maven2/org/jruby/jruby-dist/${JRUBY_VERSION}/jruby-dist-${JRUBY_VERSION}-bin.tar.gz -o /tmp/jruby.tar.gz \
