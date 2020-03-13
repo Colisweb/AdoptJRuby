@@ -1,7 +1,6 @@
 # Copied from https://github.com/cpuguy83/docker-jruby/blob/baed0bc286dba0992746c2f9cbb311a1c945a16f/9000/jdk/Dockerfile
 #
-FROM adoptopenjdk/openjdk11:x86_64-ubuntu-jdk-11.0.6_10-slim
-
+FROM adoptopenjdk/openjdk11:x86_64-ubuntu-jre-11.0.4_11
 # Fixes brought to this version:
 # ------------------------------
 #   - `netbase` is required. See: https://github.com/jruby/jruby/issues/3955#issuecomment-254504589
