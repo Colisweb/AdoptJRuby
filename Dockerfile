@@ -1,6 +1,6 @@
 # Copied from https://github.com/cpuguy83/docker-jruby/blob/baed0bc286dba0992746c2f9cbb311a1c945a16f/9000/jdk/Dockerfile
 #
-FROM adoptopenjdk/openjdk11:x86_64-ubuntu-jre-11.0.4_11
+FROM adoptopenjdk/openjdk11:x86_64-ubuntu-jre-11.0.7_10
 # Fixes brought to this version:
 # ------------------------------
 #   - `netbase` is required. See: https://github.com/jruby/jruby/issues/3955#issuecomment-254504589
@@ -11,8 +11,8 @@ RUN apt-get update && \
     apt-get install -y libc6-dev netbase libfontconfig --no-install-recommends && \
     rm -rf /var/lib/apt/lists/*
 
-ENV JRUBY_VERSION 9.2.9.0
-ENV JRUBY_SHA256 ced3fbb81b4f29f6a7fe7207e678e4154d95cc94de9f509fcaaf05768a6bf911
+ENV JRUBY_VERSION 9.2.11.1
+ENV JRUBY_SHA256 f10449c82567133908e5e1ac076438307a7f0916f617f40fa314b78873a195dc
 RUN mkdir /opt/jruby \
   && curl -fSL https://repo1.maven.org/maven2/org/jruby/jruby-dist/${JRUBY_VERSION}/jruby-dist-${JRUBY_VERSION}-bin.tar.gz -o /tmp/jruby.tar.gz \
   && echo "$JRUBY_SHA256 /tmp/jruby.tar.gz" | sha256sum -c - \
