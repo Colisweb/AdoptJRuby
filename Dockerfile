@@ -11,8 +11,8 @@ RUN apt-get update && \
     apt-get install -y libc6-dev netbase libfontconfig --no-install-recommends && \
     rm -rf /var/lib/apt/lists/*
 
-ENV JRUBY_VERSION 9.2.13.0
-ENV JRUBY_SHA256 73a8c241a162e644c87e864c3485c55adedeb82a6fd80fa3cb538fdacda7af58
+ENV JRUBY_VERSION 9.2.19.0
+ENV JRUBY_SHA256 9ebd082cf9f29697c76e503e00b79d30e3e9b87071afb8823c3b8b033f5f5723
 RUN mkdir /opt/jruby \
   && curl -fSL https://repo1.maven.org/maven2/org/jruby/jruby-dist/${JRUBY_VERSION}/jruby-dist-${JRUBY_VERSION}-bin.tar.gz -o /tmp/jruby.tar.gz \
   && echo "$JRUBY_SHA256 /tmp/jruby.tar.gz" | sha256sum -c - \
