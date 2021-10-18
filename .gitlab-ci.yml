@@ -1,5 +1,5 @@
 include:
-  - 'https://gitlab.com/colisweb-open-source/ci-common/raw/v7.10.1/templates/colisweb.yml'
+  - 'https://colisweb-open-source.gitlab.io/ci-common/v13.8.8/templates/colisweb.yml'
 
 version:
   extends: .version
