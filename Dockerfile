@@ -1,6 +1,6 @@
 # Copied from https://github.com/cpuguy83/docker-jruby/blob/baed0bc286dba0992746c2f9cbb311a1c945a16f/9000/jdk/Dockerfile
 #
-FROM amd64/jruby:9.2.19-jdk17
+FROM adoptopenjdk/openjdk14:x86_64-ubuntu-jre-14.0.2_12
 # Fixes brought to this version:
 # ------------------------------
 #   - `netbase` is required. See: https://github.com/jruby/jruby/issues/3955#issuecomment-254504589
