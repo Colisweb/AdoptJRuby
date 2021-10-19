@@ -4,7 +4,7 @@ FROM amd64/jruby:9.2.19-jdk17
 # Fixes brought to this version:
 # ------------------------------
 #   - `netbase` is required. See: https://github.com/jruby/jruby/issues/3955#issuecomment-254504589
-#   - `libfontconfig` is required. See: https://bugs.openjdk.java.net/browse/JDK-8204688 
+#   - `libfontconfig` is required. See: https://bugs.openjdk.java.net/browse/JDK-8204688
 #
 RUN apt-get update && \
     apt-get dist-upgrade -y && \
