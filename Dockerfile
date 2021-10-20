@@ -1,6 +1,6 @@
 # Copied from https://github.com/cpuguy83/docker-jruby/blob/baed0bc286dba0992746c2f9cbb311a1c945a16f/9000/jdk/Dockerfile
 #
-FROM adoptopenjdk/openjdk14:x86_64-ubuntu-jre-14.0.2_12
+FROM jruby:9.2.19.0-jre11
 # Fixes brought to this version:
 # ------------------------------
 #   - `netbase` is required. See: https://github.com/jruby/jruby/issues/3955#issuecomment-254504589
@@ -10,16 +10,6 @@ RUN apt-get update && \
     apt-get dist-upgrade -y && \
     apt-get install -y libc6-dev netbase libfontconfig --no-install-recommends && \
     rm -rf /var/lib/apt/lists/*
-
-ENV JRUBY_VERSION 9.2.14.0
-ENV JRUBY_SHA256 32e73b2551f01e459ece84f732bcbf80712c3b71b6df7dbd063354b4d277e0b5
-RUN mkdir /opt/jruby \
-  && curl -fSL https://repo1.maven.org/maven2/org/jruby/jruby-dist/${JRUBY_VERSION}/jruby-dist-${JRUBY_VERSION}-bin.tar.gz -o /tmp/jruby.tar.gz \
-  && echo "$JRUBY_SHA256 /tmp/jruby.tar.gz" | sha256sum -c - \
-  && tar -zx --strip-components=1 -f /tmp/jruby.tar.gz -C /opt/jruby \
-  && rm /tmp/jruby.tar.gz \
-  && update-alternatives --install /usr/local/bin/ruby ruby /opt/jruby/bin/jruby 1
-ENV PATH /opt/jruby/bin:$PATH
 
 # skip installing gem documentation
 RUN mkdir -p /opt/jruby/etc \
